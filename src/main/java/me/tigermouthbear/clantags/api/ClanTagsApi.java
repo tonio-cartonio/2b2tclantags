@@ -72,6 +72,7 @@ public class ClanTagsApi {
 
 	public static void handleClientChatReceivedEvent(ClientChatReceivedEvent event) {
 		String message = event.getMessage().getUnformattedText();
+		String messageFormatted = event.getMessage().getFormattedText();
 
 		if(message.startsWith("<")) {
 			String username = message.split("<")[1].split(">")[0];
@@ -86,15 +87,12 @@ public class ClanTagsApi {
 			if(clanMember != null)
 				event.setMessage(clanMember.getInteractiveClanTags().appendSibling(event.getMessage()));
 		} else if(message.startsWith("to ")) {
-			String beginning = message.substring(0, message.indexOf(":"));
-			String[] arr = beginning.split(" ");
+			String[] arr = message.substring(0, message.indexOf(":")).split(" ");
 			String username = arr[arr.length - 1];
 			ClanMember clanMember = ClanTagsApi.getClanMemberByUsername(username);
 
-			TextComponentString first = new TextComponentString(arr[0]);
-
 			if(clanMember != null)
-				event.setMessage(first.appendSibling(clanMember.getInteractiveClanTags()).appendText(username).appendText(message.substring(message.indexOf(":"))));
+				event.setMessage(clanMember.getInteractiveClanTags().appendSibling(event.getMessage()));
 		}
 	}
 
