@@ -91,7 +91,7 @@ public class ClanTagsApi {
 			String username = arr[arr.length - 1];
 			ClanMember clanMember = ClanTagsApi.getClanMemberByUsername(username);
 
-			TextComponentString first = new TextComponentString("to ");
+			TextComponentString first = new TextComponentString(arr[0]);
 
 			if(clanMember != null)
 				event.setMessage(first.appendSibling(clanMember.getInteractiveClanTags()).appendText(username).appendText(message.substring(message.indexOf(":"))));
